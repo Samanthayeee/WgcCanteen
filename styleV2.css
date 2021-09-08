@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*Default element, css reset  */
+}
+body {
+    background-color: ghostwhite;
+    width: 85%;
+    margin-top: 2%;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+h1 {
+    font-size:1.5cm ;
+    font-family:"Al Bayan" ;
+    text-align: center;
+    margin-top: 1cm;
+    color: teal;
+}
+
+h2 {
+    font-size: 1cm;
+    margin-bottom: 2cm;
+    margin-top: 2cm;
+    text-align: center;
+    color:Darkslategrey;
+}
+
+a {
+    font-size: 0.75cm;
+    text-align: center;
+    color:darkslategrey;
+    margin-top: 1cm ;
+    margin-right: 2cm;
+    margin-left: 2cm;
+    text-decoration:none;
+    text-align: center;
+}
+
+nav {
+    margin-left: 20px;
+    margin-top: 1cm;
+    margin-right: 2cm;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+form{
+    text-align: center;
+}
+
+logo{
+    margin-top: 0px;
+    margin-bottom: 60px;
+}
+
+
+
+
