@@ -5,6 +5,19 @@ if(mysqli_connect_errno()){
 else{
     echo "connected to database";
 }
+
+if(isset($_GET['food'])){
+    $id = $_GET['food'];
+}else {
+    $id = 1;
+}
+
+$all_food_query = "SELECT FoodID, FoodItem FROM food";
+$all_food_result = mysqli_query($con, $all_food_query);
+$this_food_query = "SELECT FoodID, FoodItem, FoodPrice, FoodAvalibility FROM food WHERE food.FoodID = '" .$id."'";
+$this_food_result = mysqli_query($con, $this_food_query);
+$this_food_record = mysqli_fetch_assoc($this_food_result);
+
 ?>
 <!DOCTYPE html>
 
@@ -30,25 +43,25 @@ else{
 </header>
 </body>
 <main>
-    <form name="drink_form" id="drink_form" method = "get" action ="Drinkspage2.php">
-        <select id="drink" name="drink">
-
-        </select>
-        <input type="Submit" name="drink_button" value = "show me the drink information">
-    </form>
-
+    <?php
+        echo "<p> Food ID: " .$this_food_record['FoodID'] . "<br>";
+        echo "<p> Food Item: " .$this_food_record['FoodItem'] . "<br>";
+        echo "<p> Food Price: " . $this_food_record['FoodPrice'] ."<br>";
+        echo "<p> Food Avalibility: " . $this_food_record['FoodAvalibility'] ."<br>";
+    ?>
     <form name="food_form" id="food_form" method = "get" action ="Foodpage2.php">
         <select id="food" name="food">
+            <?php
+            while($all_food_record = mysqli_fetch_assoc($all_food_result)){
+                echo "<option value = '". $all_food_record['FoodID'] . "'>";
+                echo $all_food_record ['FoodItem'];
+                echo "</option>";
+            }
+
+            ?>
 
         </select>
         <input type="Submit" name="food_button" value = "show me the food information">
-    </form>
-
-    <form name="specials_form" id="specials_form" method = "get" action ="Specialspage2.php">
-        <select id="speicals" name="specials">
-
-        </select>
-        <input type="Submit" name="specials_button" value = "show me the specials information">
     </form>
 
 </main>

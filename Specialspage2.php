@@ -5,6 +5,20 @@ if(mysqli_connect_errno()){
 else{
     echo "connected to database";
 }
+if(isset($_GET['special'])){
+    $id = $_GET['special'];
+}else {
+    $id = 1;
+}
+$all_specials_query = "SELECT Weekday FROM specials ";
+$all_specials_result = mysqli_query($con, $all_specials_query);
+$this_specials_query = "SELECT specials.Weekday, specials.FoodID, food.FoodItem , food.FoodID, specials.DrinkID, drink.DrinkItem , drink.DrinkID, specials.Special
+FROM specials, food, drink
+WHERE specials.FoodID = drink.DrinkID
+AND specials.DrinkID = food.FoodID
+AND specials.Weekday = '" .$id."'";
+$this_specials_result = mysqli_query($con, $this_specials_query);
+$this_specials_record = mysqli_fetch_assoc($this_specials_result);
 ?>
 <!DOCTYPE html>
 
@@ -30,22 +44,24 @@ else{
 </header>
 </body>
 <main>
-    <form name="drink_form" id="drink_form" method = "get" action ="Drinkspage2.php">
-        <select id="drink" name="drink">
 
-        </select>
-        <input type="Submit" name="drink_button" value = "show me the drink information">
-    </form>
-
-    <form name="food_form" id="food_form" method = "get" action ="Foodpage2.php">
-        <select id="food" name="food">
-
-        </select>
-        <input type="Submit" name="food_button" value = "show me the food information">
-    </form>
+    <?php
+        echo "<p> Weekday: " . $this_specials_record['Weekday'] . "<br>";
+        echo "<p> Special: " . $this_specials_record['Special'] . "<br>";
+        echo "<p> FoodID: " . $this_specials_record['FoodID'] . "<br>";
+        echo "<p> DrinkID: " . $this_specials_record['DrinkID'] . "<br>";
+    ?>
 
     <form name="specials_form" id="specials_form" method = "get" action ="Specialspage2.php">
-        <select id="speicals" name="specials">
+        <select id="specials" name="specials">
+        <?php
+            while($all_specials_record = mysqli_fetch_assoc($all_specials_result)) {
+                echo "<option value = '" . $all_specials_record['Weekday'] . "'>";
+                echo $all_specials_record ['Weekday'];
+                echo "</option>";
+            }
+            ?>
+
 
         </select>
         <input type="Submit" name="specials_button" value = "show me the specials information">
